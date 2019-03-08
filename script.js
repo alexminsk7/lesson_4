@@ -35,7 +35,7 @@ let appData = {
          } else {
             i--;
          }
-      }   
+      }
    },
    detectDayBudget: function () {
       appData.moneyPerDay = (appData.moneyData / 30).toFixed(2);
@@ -59,33 +59,41 @@ let appData = {
 
          appData.monthIncome = (save / 100 / 12 * percent).toFixed(2);
          alert("Доход в месяц с вашего депозита: " + appData.monthIncome);
-      }   
+      }
    },
    chooseOptExpenses: function () {
       for (let i = 1; i < 3; i++) {
          let opt = prompt("Статья необязательных расходов?", "");
-         appData.optionalExpenses[i] = opt;
+
+         if ((typeof (opt)) === 'string' && (typeof (opt)) != null &&
+            opt != '' && opt.length < 50) {
+
+            appData.optionalExpenses[i] = opt;
+         } else {
+            i--;
+         }
       }
    },
    chooseIncome: function () {
       let items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", "");
-      
-      // проверка для пользователя
-      while (isNaN(items) || items == "" || items == null || items == Number) {
-         items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", "");
-      }
       appData.income = items.split(', ');
       appData.income.push(prompt("Может что-то еще?"));
       appData.income.sort();
-      
-      // вывод сообщения
-      items.forEach(function (item, i) {
-         alert(i + ': ' + item);
-      });
 
-      // цикл for in для вывода сообщения
-      for (let key in appData) {
-         console.log(key + appData[key]);  
+      // проверка для пользователя
+      while (isNaN(items) || items == "string" || items == "" || items == null) {
+         items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", "");
       }
+
+      // вывод сообщения
+      // let items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", "");
+      items.forEach(function (item, i) {
+         alert("Способы доп. заработка: " + i + ': ' + item);
+      });
    }
 };
+
+// цикл for in для вывода сообщения
+for (let key in appData) {
+   console.log('Наша программа включает в себя данные: ' + appData);
+}
