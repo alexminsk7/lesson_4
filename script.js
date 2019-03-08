@@ -76,18 +76,19 @@ let appData = {
    },
    chooseIncome: function () {
       let items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", "");
+
+      // проверка для пользователя
+      while (isNaN(items) || items === "" || items === null) {
+         items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", "");
+      }
+      
       appData.income = items.split(', ');
       appData.income.push(prompt("Может что-то еще?"));
       appData.income.sort();
 
-      // проверка для пользователя
-      while (isNaN(items) || items == "string" || items == "" || items == null) {
-         items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", "");
-      }
-
       // вывод сообщения
       // let items = prompt("Что принесет дополнительный доход? (Перечислите через запятую)", "");
-      items.forEach(function (item, i) {
+      appData.income.forEach(function (item, i) {
          alert("Способы доп. заработка: " + i + ': ' + item);
       });
    }
